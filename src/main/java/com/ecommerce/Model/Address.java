@@ -43,7 +43,7 @@ public class Address {
     @Size(min = 6,message = "pincode number must be atleast 6 characters")
     private String pincode;
 
-
+    @ToString.Exclude
     @ManyToMany(mappedBy = "addresses")
     private List<User> users = new ArrayList<>();
 
