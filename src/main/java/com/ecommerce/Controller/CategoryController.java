@@ -52,7 +52,6 @@ public class CategoryController {
 
     @PostMapping("/admin/addAllCategories")
     public ResponseEntity<List<CategoryDTO>> createAllCategory(@RequestBody List<CategoryDTO> categories) {
-        System.out.println("hello");
         return new ResponseEntity<List<CategoryDTO>>(service.addAllTheCategories(categories), HttpStatus.CREATED);
     }
 }
