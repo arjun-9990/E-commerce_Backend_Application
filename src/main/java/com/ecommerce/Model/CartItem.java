@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name="cart_items")
+@Table(name = "cart_items")
 public class CartItem {
 
     @Id

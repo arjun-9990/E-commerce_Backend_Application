@@ -27,9 +27,9 @@ public class CartController {
 
     @PostMapping("/carts/products/{productId}/quantity/{quantity}")
     public ResponseEntity<CartDTO> addProductToCart(@PathVariable Long productId
-                                                    ,@PathVariable Integer quantity){
-         CartDTO cartDTO = cartService.addProductToCart(productId,quantity);
-         return ResponseEntity.status(HttpStatus.CREATED).body(cartDTO);
+            , @PathVariable Integer quantity) {
+        CartDTO cartDTO = cartService.addProductToCart(productId, quantity);
+        return ResponseEntity.status(HttpStatus.CREATED).body(cartDTO);
     }
 
     @GetMapping("/carts")
@@ -39,7 +39,7 @@ public class CartController {
     }
 
     @GetMapping("/carts/users/cart")
-    public ResponseEntity<CartDTO> getCartById(){
+    public ResponseEntity<CartDTO> getCartById() {
         String email = authUtil.loggedInEmail();
         Cart cart = cartRepository.findCartByEmail(email);
         Long cartId = cart.getCartId();

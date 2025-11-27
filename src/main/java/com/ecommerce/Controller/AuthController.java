@@ -33,19 +33,15 @@ import java.util.stream.Collectors;
 public class AuthController {
 
     @Autowired
-    private JwtUtils jwtUtils;
-
-    @Autowired
-    private AuthenticationManager authenticationManager;
-
-    @Autowired
     UserRepository userRepository;
-
     @Autowired
     RoleRepository roleRepository;
-
     @Autowired
     PasswordEncoder encoder;
+    @Autowired
+    private JwtUtils jwtUtils;
+    @Autowired
+    private AuthenticationManager authenticationManager;
 
     @PostMapping("/signin")
     public ResponseEntity<?> authenticateUser(@RequestBody LoginRequest loginRequest) {
@@ -76,10 +72,10 @@ public class AuthController {
 //                userDetails.getUsername(), roles, jwtToken);
 
         UserInfoResponse response = new UserInfoResponse(userDetails.getId(),
-               userDetails.getUsername(), roles,jwtCookie.toString());
+                userDetails.getUsername(), roles, jwtCookie.toString());
 
         return ResponseEntity.ok()
-                .header(HttpHeaders.SET_COOKIE,jwtCookie.toString())
+                .header(HttpHeaders.SET_COOKIE, jwtCookie.toString())
                 .body(response);
 
 //        return ResponseEntity.ok(response);
@@ -137,16 +133,16 @@ public class AuthController {
     }
 
     @GetMapping("/username")
-    public String currentUserName(Authentication authentication){
-        if(authentication != null){
+    public String currentUserName(Authentication authentication) {
+        if (authentication != null) {
             return authentication.getName();
-        }else{
+        } else {
             return "";
         }
     }
 
     @GetMapping("/user")
-    public ResponseEntity<?> getUserDetails(Authentication authentication){
+    public ResponseEntity<?> getUserDetails(Authentication authentication) {
         UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
 
 
@@ -162,10 +158,10 @@ public class AuthController {
     }
 
     @PostMapping("/signout")
-    public ResponseEntity<?> signoutUser(){
+    public ResponseEntity<?> signoutUser() {
         ResponseCookie cookie = jwtUtils.getCleanJwtCookie();
         return ResponseEntity.status(HttpStatus.OK)
-                .header(HttpHeaders.SET_COOKIE,cookie.toString())
+                .header(HttpHeaders.SET_COOKIE, cookie.toString())
                 .body(new MessageResponse("You've been signed out")
                 );
     }

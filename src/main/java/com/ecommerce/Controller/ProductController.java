@@ -37,8 +37,8 @@ public class ProductController {
             @RequestParam(name = "sortBy", defaultValue = AppConstands.SORT_PRODUCTS_BY, required = false) String sortBy,
             @RequestParam(name = "sortOrder", defaultValue = AppConstands.SORT_ORDER, required = false) String sortOrder
 
-    ){
-        ProductResponse productResponse = productService.getAllProducts(pageNumber,pageSize,sortBy,sortOrder);
+    ) {
+        ProductResponse productResponse = productService.getAllProducts(pageNumber, pageSize, sortBy, sortOrder);
         return ResponseEntity.status(HttpStatus.OK).body(productResponse);
     }
 
@@ -48,8 +48,8 @@ public class ProductController {
                                                                 @RequestParam(name = "PageSize", defaultValue = AppConstands.PAGE_SIZE, required = false) Integer pageSize,
                                                                 @RequestParam(name = "sortBy", defaultValue = AppConstands.SORT_PRODUCTS_BY, required = false) String sortBy,
                                                                 @RequestParam(name = "sortOrder", defaultValue = AppConstands.SORT_ORDER, required = false) String sortOrder
-    ){
-        ProductResponse  productResponse = productService.searchByCategory(categoryId,pageNumber,pageSize,sortBy,sortOrder);
+    ) {
+        ProductResponse productResponse = productService.searchByCategory(categoryId, pageNumber, pageSize, sortBy, sortOrder);
         return ResponseEntity.status(HttpStatus.OK).body(productResponse);
     }
 
@@ -59,20 +59,20 @@ public class ProductController {
                                                                @RequestParam(name = "PageSize", defaultValue = AppConstands.PAGE_SIZE, required = false) Integer pageSize,
                                                                @RequestParam(name = "sortBy", defaultValue = AppConstands.SORT_PRODUCTS_BY, required = false) String sortBy,
                                                                @RequestParam(name = "sortOrder", defaultValue = AppConstands.SORT_ORDER, required = false) String sortOrder
-    ){
-        ProductResponse productResponse = productService.serachProductByKeyword(keyword,pageNumber,pageSize,sortBy,sortOrder);
+    ) {
+        ProductResponse productResponse = productService.serachProductByKeyword(keyword, pageNumber, pageSize, sortBy, sortOrder);
         return ResponseEntity.status(HttpStatus.FOUND).body(productResponse);
     }
 
     @PutMapping("/admin/product/{productId}")
-    public ResponseEntity<ProductDTO> updateProduct(@Valid @RequestBody ProductDTO productDTO ,
-                                                    @PathVariable Long productId){
-        ProductDTO updatedProductDTO = productService.updateProduct(productId,productDTO);
+    public ResponseEntity<ProductDTO> updateProduct(@Valid @RequestBody ProductDTO productDTO,
+                                                    @PathVariable Long productId) {
+        ProductDTO updatedProductDTO = productService.updateProduct(productId, productDTO);
         return ResponseEntity.status(HttpStatus.OK).body(updatedProductDTO);
     }
 
     @DeleteMapping("/admin/product/{productId}")
-    public ResponseEntity<ProductDTO> deleteProduct(@PathVariable Long productId){
+    public ResponseEntity<ProductDTO> deleteProduct(@PathVariable Long productId) {
         ProductDTO deleteProductDTO = productService.deleteProduct(productId);
         return ResponseEntity.status(HttpStatus.OK).body(deleteProductDTO);
     }
@@ -80,7 +80,7 @@ public class ProductController {
     @PutMapping("/products/{productId}/image")
     public ResponseEntity<ProductDTO> updateProductImage(@PathVariable Long productId,
                                                          @RequestParam("image") MultipartFile image) throws IOException {
-        ProductDTO updatedProduct = productService.updateProductImage(productId,image);
+        ProductDTO updatedProduct = productService.updateProductImage(productId, image);
         return ResponseEntity.status(HttpStatus.OK).body(updatedProduct);
     }
 
