@@ -13,11 +13,11 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class AddressServiceImpl implements AddressService{
+public class AddressServiceImpl implements AddressService {
 
     @Autowired
     private AddressRepository addressRepository;
-    
+
     @Autowired
     private ModelMapper modelMapper;
 
@@ -37,7 +37,7 @@ public class AddressServiceImpl implements AddressService{
         address.setUser(user);
         Address savedAddress = addressRepository.save(address);
 
-        return modelMapper.map(savedAddress,AddressDTO.class);
+        return modelMapper.map(savedAddress, AddressDTO.class);
     }
 
     @Override
@@ -54,14 +54,14 @@ public class AddressServiceImpl implements AddressService{
     public AddressDTO getAddressById(Long addressId) {
         Address address = addressRepository.findById(addressId)
                 .orElseThrow(() -> new ResourceNotFoundException("Address", "AddressID", addressId));
-        return modelMapper.map(address,AddressDTO.class);
+        return modelMapper.map(address, AddressDTO.class);
     }
 
     @Override
     public List<AddressDTO> getUserAddresses(User user) {
         List<Address> addressess = user.getAddresses();
         return addressess.stream()
-                .map(address -> modelMapper.map(address,AddressDTO.class))
+                .map(address -> modelMapper.map(address, AddressDTO.class))
                 .toList();
     }
 
@@ -86,13 +86,13 @@ public class AddressServiceImpl implements AddressService{
 
         userRepository.save(user);
 
-        return modelMapper.map(updatedAddress,AddressDTO.class);
+        return modelMapper.map(updatedAddress, AddressDTO.class);
     }
 
     @Override
     public String deleteAddress(Long addressId) {
-       Address addressFromDatabase = addressRepository.findById(addressId)
-                .orElseThrow(() -> new ResourceNotFoundException("Address","Address Id",addressId));
+        Address addressFromDatabase = addressRepository.findById(addressId)
+                .orElseThrow(() -> new ResourceNotFoundException("Address", "Address Id", addressId));
 
         User user = addressFromDatabase.getUser();
         user.getAddresses().removeIf(address -> address.getAddressId().equals(addressId));
